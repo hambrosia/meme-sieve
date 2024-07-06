@@ -1,0 +1,17 @@
+[build-system]
+requires = ["setuptools"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "meme-sieve"
+version = "0.0.1"
+dependencies = [
+    "google-generativeai",
+    "Pillow",
+]
+
+[project.scripts]
+memesieve = "cli:main"
+
+[tool.setuptools.packages.find]
+where = ["meme_sieve"]

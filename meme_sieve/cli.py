@@ -30,7 +30,7 @@ def generate_text_using_image(prompt, image_path, sleep_time=4):
     return response.text
 
 
-if __name__ == "__main__":
+def main():
     parser = argparse.ArgumentParser(prog="Meme Sieve", description="Returns a list of filepaths for memes in the specified folder")
     parser.add_argument("-s", "--source_folder", default=".", type=str, help="The source folder path containing the files to be checked for memes")
     parser.add_argument("-d", "--delay", default=4, type=int, help="The amount of seconds to wait between each examined file. This helps the tool stay within the free tier for the Gemini Flash model")
@@ -60,3 +60,7 @@ if __name__ == "__main__":
                 print(Path(path).name)
             else:
                 print(os.path.abspath(path))
+
+
+if __name__ == "__main__":
+    main()

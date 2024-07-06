@@ -17,10 +17,10 @@ Example 1, the image contains a meme: true
 Example 2, the image does not contain a meme, it is a normal photograph: false
 """
 
-def generate_text_using_image(prompt, image_path, sleep_time=4):
+def generate_text_using_image(prompt, image_path, model_name, sleep_time=4):
     """Sleep time of 4 keeps usage under the free tier limit of 15 requests per minute for gemini 1.5 flash."""
     start = time.perf_counter()
-    model = genai.GenerativeModel('gemini-1.5-flash-latest', system_instruction=prompt)
+    model = genai.GenerativeModel(model_name=model_name, system_instruction=prompt)
 
     response = model.generate_content(contents=[Image.open(image_path)])
 
@@ -54,7 +54,7 @@ def main():
         sys.exit("Error: No image files found in the specified folder with the specified extensions.")
 
     for path in file_paths:
-        res_text = generate_text_using_image(prompt=PROMPT, image_path=path, sleep_time=args.delay)
+        res_text = generate_text_using_image(prompt=PROMPT, image_path=path, model_name=args.model, sleep_time=args.delay)
         if "true" in res_text:
             if args.source_folder == ".":
                 print(Path(path).name)

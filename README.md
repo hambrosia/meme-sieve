@@ -37,7 +37,7 @@ options:
 Run the program and it will print the names of files in the current folder that it identifies as memes. This simple output is intended to be used as input for other programs, in the spirit of the [Unix philosophy](https://en.wikipedia.org/wiki/Unix_philosophy).
 
 ```console 
-$ .memesieve 
+$ memesieve 
 beans.jpg
 pizza_roll.jpg
 simpsons.jpg

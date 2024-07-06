@@ -6,14 +6,15 @@ Filter memes from your photo library.
 
 
 ### API Setup
-Set the Google API Key environment variable.
+Set the Google API key environment variable. To get a new API key, visit [Google AI Studio](https://aistudio.google.com/app/apikey). When testing the tool, it is recommended to make a new token in the unpaid free tier to avoid any costs. The user is responsible for any costs incurred for Google API usage.
+
 ```shell
 $ export GOOGLE_API_KEY="gabagool"
 ```
 
 
 ### Running
-Run the program and it will print the names of files in the current folder that it identifies as memes.
+Run the program and it will print the names of files in the current folder that it identifies as memes. This simple output is intended to be used as input for other programs, in the spirit of the [Unix philosophy](https://en.wikipedia.org/wiki/Unix_philosophy).
 
 ```shell 
 $ ../main.py 
@@ -28,7 +29,7 @@ To move or copy the memes out of the directory, pipe the results to the desired 
 
 
 ### Copy
-To copy the memes to another foloder, use the following:
+To copy the memes to another foloder, use a variation of the following:
 
 ```shell
 ./main.py | while read filename; do cp "$filename" "../output_folder/$filename"; done
@@ -36,12 +37,12 @@ To copy the memes to another foloder, use the following:
 
 
 ### Move
-To move the memes to another folder, use the following:
+To move the memes to another folder, use something similar to the following:
 ```shell
 ./main.py | while read filename; do cp "$filename" "../output_folder/$filename"; done
 ```
 
-Always exercise caution, as the program can sometimes misidentify photos as memes, especially if they are humorous or contain meme-like text.
+Always exercise caution, since the program can sometimes misidentify photos as memes, especially if they are humorous or contain meme-like text.
 
 
 ### Setting the delay

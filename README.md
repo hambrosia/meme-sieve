@@ -16,7 +16,7 @@ $ export GOOGLE_API_KEY="gabagool"
 
 ```console
 $ memesieve --help
-usage: Meme Sieve [-h] [-s SOURCE_FOLDER] [-d DELAY] [-e EXTENSIONS [EXTENSIONS ...]] [-m MODEL]
+usage: memesieve [-h] [-s SOURCE_FOLDER] [-d DELAY] [-e EXTENSIONS [EXTENSIONS ...]] [-m MODEL]
 
 Returns a list of filepaths for memes in the specified folder
 

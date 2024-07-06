@@ -5,6 +5,13 @@ build-backend = "setuptools.build_meta"
 [project]
 name = "meme-sieve"
 version = "0.0.1"
+description = "A simple CLI to identify memes on local storage"
+readme = "README.md"
+requires-python = ">=3.12"
+classifiers = [
+    "Intended Audience :: End Users/Desktop",
+    "Topic :: Desktop Environment :: File Managers"
+]
 dependencies = [
     "google-generativeai",
     "Pillow",
@@ -15,3 +22,7 @@ memesieve = "cli:main"
 
 [tool.setuptools.packages.find]
 where = ["meme_sieve"]
+
+[project.urls]
+Homepage = "https://github.com/hambrosia/meme-sieve"
+Issues = "https://github.com/hambrosia/meme-sieve/issues"

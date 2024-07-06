@@ -31,7 +31,7 @@ def generate_text_using_image(prompt, image_path, model_name, sleep_time=4):
 
 
 def main():
-    parser = argparse.ArgumentParser(prog="Meme Sieve", description="Returns a list of filepaths for memes in the specified folder")
+    parser = argparse.ArgumentParser(prog="memesieve", description="Returns a list of filepaths for memes in the specified folder")
     parser.add_argument("-s", "--source_folder", default=".", type=str, help="The source folder path containing the files to be checked for memes")
     parser.add_argument("-d", "--delay", default=4, type=int, help="The amount of seconds to wait between each examined file. This helps the tool stay within the free tier for the Gemini Flash model")
     parser.add_argument('-e', '--extensions', nargs="+", default=["jpg", "png", "gif"], help="The extensions to include in the searched files.")
@@ -56,10 +56,7 @@ def main():
     for path in file_paths:
         res_text = generate_text_using_image(prompt=PROMPT, image_path=path, model_name=args.model, sleep_time=args.delay)
         if "true" in res_text:
-            if args.source_folder == ".":
-                print(Path(path).name)
-            else:
-                print(os.path.abspath(path))
+            print(os.path.abspath(path))
 
 
 if __name__ == "__main__":

@@ -49,12 +49,8 @@ def main():
 
     try:
         genai.configure(api_key=os.environ["GOOGLE_API_KEY"])
-    except Exception as e:
-        print(type(e))
     except KeyError as e:
         sys.exit("Error: GOOGLE_API_KEY env var must be set with a valid Google API key.")
-
-
         
     file_paths = []
     for ext in args.extensions:

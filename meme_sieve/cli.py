@@ -10,7 +10,15 @@ from pathlib import Path
 import google.generativeai as genai
 from PIL import Image
 
-PROMPT = """You are a heavy social media user meme lord. You know memes like the back of your hand. Your job is to label an image as a meme: true / false.
+PROMPT = """You are an expert in memes and internet culture. Your job is to label an image as a meme: true / false.
+Some of the key indicators of memes you're looking for are:
+1. A screenshot-like quality
+2. Indications of being edited or photoshopped multiple times
+3. A caption or commentary text
+4. Humorous quality
+
+Try to avoid accidentally identifying ordinary photos as memes, even if they contain some text or illustrations.
+
 Provide no commentary other than the word true or false.
 
 Example 1, the image contains a meme: true
@@ -41,8 +49,12 @@ def main():
 
     try:
         genai.configure(api_key=os.environ["GOOGLE_API_KEY"])
-    except Exception:
+    except Exception as e:
+        print(type(e))
+    except KeyError as e:
         sys.exit("Error: GOOGLE_API_KEY env var must be set with a valid Google API key.")
+
+
         
     file_paths = []
     for ext in args.extensions:
@@ -56,8 +68,10 @@ def main():
     for path in file_paths:
         res_text = generate_text_using_image(prompt=PROMPT, image_path=path, model_name=args.model, sleep_time=args.delay)
         if "true" in res_text:
-            print(os.path.abspath(path))
-
+            if args.source_folder == ".":
+                print(Path(path).name)
+            else:
+                print(os.path.abspath(path))
 
 if __name__ == "__main__":
     main()

@@ -59,7 +59,7 @@ $ memesieve | while read filename; do cp "$filename" "../output_folder/$filename
 ### Move
 To move the memes to another folder, use something similar to the following:
 ```console
-$ memesieve | while read filename; do cp "$filename" "../output_folder/$filename"; done
+$ memesieve | while read filename; do mv "$filename" "../output_folder/$filename"; done
 ```
 
 Always exercise caution, since the program can sometimes misidentify photos as memes, especially if they are humorous or contain meme-like text.

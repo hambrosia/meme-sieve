@@ -5,6 +5,28 @@ Filter memes from your photo library.
 ## Usage
 
 
+### Development Setup
+
+Install in editable mode using the `Makefile`
+
+```console
+$ make install-dev
+```
+
+The dev installation will install the program in a virtual environment by default. Activate it as follows.
+```console
+$ source venv/bin/activate
+```
+
+To confirm the installation was successfull, use `which` to reveal the location of the development installation.
+```console
+$which memesieve
+/home/memeuser/git/hambrosia/meme-sieve/venv/bin/memesieve
+```
+
+With the virtual environment activated, you can use the `memesieve` command in any directory for testing.
+
+
 ### API Setup
 Set the Google API key environment variable. To get a new API key, visit [Google AI Studio](https://aistudio.google.com/app/apikey). When testing the tool, it is recommended to make a new token in the unpaid free tier to avoid any costs. The user is responsible for any costs incurred for Google API usage.
 

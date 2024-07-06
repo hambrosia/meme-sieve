@@ -35,20 +35,26 @@ if __name__ == "__main__":
     parser = argparse.ArgumentParser(prog="Meme Sieve", description="Returns a list of filepaths for memes in the specified folder")
     parser.add_argument("-s", "--source_folder", default=".", type=str, help="The source folder path containing the files to be checked for memes")
     parser.add_argument("-d", "--delay", default=4, type=int, help="The amount of seconds to wait between each examined file. This helps the tool stay within thre free tier for the Gemini Flash model")
+    parser.add_argument('-e', '--extensions', nargs='+', default=["jpg", "png", "gif"])
 
     args = parser.parse_args()
-    file_paths = glob(f"{args.source_folder}/*")
 
     try:
         genai.configure(api_key=os.environ["GOOGLE_API_KEY"])
     except Exception:
         sys.exit("Error: GOOGLE_API_KEY env var must be set with a valid Google API key.")
         
-    
+    file_paths = []
+    for ext in args.extensions:
+        file_paths += glob(f"{args.source_folder}/*.{ext}")
+
+    if not file_paths:
+        sys.exit("Error: No image files found in the specified folder with the specified extensions.")
+
     for path in file_paths:
         res_text = generate_text_using_image(prompt=PROMPT, image_path=path, sleep_time=args.delay)
         if "true" in res_text:
             if args.source_folder == ".":
                 print(Path(path).name)
             else:
-                print(path)
+                print(os.path.abspath(path))

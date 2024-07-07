@@ -8,7 +8,8 @@ from glob import glob
 from pathlib import Path
 
 import google.generativeai as genai
-from PIL import Image
+
+from classification_strategies.google_genai import GoogleGenAIClassifier
 
 PROMPT = """You are an expert in memes and internet culture. Your job is to label an image as a meme: true / false.
 Some of the key indicators of memes you're looking for are:
@@ -24,19 +25,6 @@ Provide no commentary other than the word true or false.
 Example 1, the image contains a meme: true
 Example 2, the image does not contain a meme, it is a normal photograph: false
 """
-
-def generate_text_using_image(prompt, image_path, model_name, sleep_time=4):
-    """Sleep time of 4 keeps usage under the free tier limit of 15 requests per minute for gemini 1.5 flash."""
-    start = time.perf_counter()
-    model = genai.GenerativeModel(model_name=model_name, system_instruction=prompt)
-
-    response = model.generate_content(contents=[Image.open(image_path)])
-
-    end = time.perf_counter()
-    duration = end - start
-    time.sleep(sleep_time - duration if duration < sleep_time else 0)
-    return response.text
-
 
 def main():
     parser = argparse.ArgumentParser(prog="memesieve", description="Returns a list of filepaths for memes in the specified folder")
@@ -62,7 +50,7 @@ def main():
         sys.exit("Error: No image files found in the specified folder with the specified extensions.")
 
     for path in file_paths:
-        res_text = generate_text_using_image(prompt=PROMPT, image_path=path, model_name=args.model, sleep_time=args.delay)
+        res_text = GoogleGenAIClassifier().generate_text_using_image(prompt=PROMPT, image_path=path, model_name=args.model, sleep_time=args.delay)
         if "true" in res_text:
             if args.source_folder == ".":
                 print(Path(path).name)

@@ -1,7 +1,9 @@
 import time
+
 import google.generativeai as genai
-from classification_strategies.classifier_base import ClassifierBase
+from classifiers.classifier_base import ClassifierBase
 from PIL import Image
+
 
 class GoogleGenAIClassifier(ClassifierBase):
     def generate_text_using_image(self, prompt, image_path, model_name, sleep_time=4):

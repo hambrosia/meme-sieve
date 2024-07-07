@@ -16,10 +16,8 @@ def detect_device():
         return torch.device("cpu"), torch.float32
 
 class MoondreamClassifier(ClassifierBase):
-    def generate_text_using_image(self, prompt, image_path, model_name, sleep_time=4):
+    def generate_text_using_image(self, prompt, image_path, model_name, model_version, sleep_time=4):
         start = time.perf_counter()
-
-        # TODO() update cli args to accept cpu/gpu
 
         device, dtype = detect_device()
         if device != torch.device("cpu"):
@@ -27,19 +25,15 @@ class MoondreamClassifier(ClassifierBase):
             print("If you run into issues, pass the `--cpu` flag to this script.")
             print()
 
-        # TODO() update classifier base to accept model name and version separately
-        model_id = "vikhyatk/moondream2"
-        revision = "2024-05-20"
-
         model = AutoModelForCausalLM.from_pretrained(
-            model_id, trust_remote_code=True, revision=revision, torch_dtype=dtype,
+            model_name, trust_remote_code=True, revision=model_version, torch_dtype=dtype,
             ).to(device=device)
         model.eval()
         
-        tokenizer = AutoTokenizer.from_pretrained(model_id, revision=revision)
+        tokenizer = AutoTokenizer.from_pretrained(model_name, revision=model_version)
         image = Image.open(image_path)
         enc_image = model.encode_image(image)
-        response = model.answer_question(enc_image, "Return 'true' if this image is a meme, 'false' if not a meme", tokenizer)
+        response = model.answer_question(enc_image, prompt, tokenizer)
 
         end = time.perf_counter()
         duration = end - start

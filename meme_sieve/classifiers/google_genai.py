@@ -6,10 +6,12 @@ from PIL import Image
 
 
 class GoogleGenAIClassifier(ClassifierBase):
-    def generate_text_using_image(self, prompt, image_path, model_name, sleep_time=4):
+    def generate_text_using_image(self, prompt, image_path, model_name, model_version, sleep_time=4):
         """Sleep time of 4 keeps usage under the free tier limit of 15 requests per minute for gemini 1.5 flash."""
         start = time.perf_counter()
-        model = genai.GenerativeModel(model_name=model_name, system_instruction=prompt)
+
+        complete_name = f"{model_name}-{model_version}"
+        model = genai.GenerativeModel(model_name=complete_name, system_instruction=prompt)
 
         response = model.generate_content(contents=[Image.open(image_path)])
 

@@ -20,7 +20,7 @@ $ source venv/bin/activate
 
 To confirm the installation was successfull, use `which` to reveal the location of the development installation.
 ```console
-$which memesieve
+$ which memesieve
 /home/memeuser/git/hambrosia/meme-sieve/venv/bin/memesieve
 ```
 

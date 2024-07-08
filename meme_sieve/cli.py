@@ -7,10 +7,6 @@ import time
 from glob import glob
 from pathlib import Path
 
-import google.generativeai as genai
-from classifiers.google_genai import GoogleGenAIClassifier
-from classifiers.moondream import MoondreamClassifier
-from classifiers.prompts import GEMINI_PROMPT, MOONDREAM_PROMPT
 from classifiers.registry import MODEL_REGISTRY
 
 

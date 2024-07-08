@@ -7,6 +7,9 @@ from transformers import AutoModelForCausalLM, AutoTokenizer
 
 
 class MoondreamClassifier(ClassifierBase):
+    def __init__(self):
+        super().__init__()
+
     def generate_text_using_image(self, prompt, image_path, model_name, model_version, sleep_time=4):
         start = time.perf_counter()
 
@@ -27,7 +30,7 @@ class MoondreamClassifier(ClassifierBase):
         time.sleep(sleep_time - duration if duration < sleep_time else 0)
         return response.lower()
 
-    def _detect_device():
+    def _detect_device(self):
         """
         Detects the appropriate device to run on, and return the device and dtype.
         """

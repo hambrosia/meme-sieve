@@ -41,17 +41,20 @@ def main():
         "moondream": {
             "model_name": "vikhyatk/moondream2",
             "model_version": "2024-05-20",
-            "prompt": MOONDREAM_PROMPT
+            "prompt": MOONDREAM_PROMPT,
+            "classifier": MoondreamClassifier
         },
         "gemini": {
             "model_name": "gemini-1.5-flash",
             "model_version": "latest",
-            "prompt": GEMINI_PROMPT
+            "prompt": GEMINI_PROMPT,
+            "classifier": GoogleGenAIClassifier
         }
     }
 
     for path in file_paths:
-        res_text = MoondreamClassifier().generate_text_using_image(
+        classifier = model_config[args.model]["classifier"]()
+        res_text = classifier.generate_text_using_image(
             prompt=model_config[args.model]["prompt"], 
             image_path=path, 
             model_name=model_config[args.model]["model_name"],

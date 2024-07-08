@@ -17,10 +17,11 @@ class MoondreamClassifier(ClassifierBase):
 
         model = AutoModelForCausalLM.from_pretrained(
             model_name, trust_remote_code=True, revision=model_version, torch_dtype=dtype,
-            ).to(device=device)
+        ).to(device=device)
         model.eval()
-        
-        tokenizer = AutoTokenizer.from_pretrained(model_name, revision=model_version)
+
+        tokenizer = AutoTokenizer.from_pretrained(
+            model_name, revision=model_version)
         image = Image.open(image_path)
         enc_image = model.encode_image(image)
         response = model.answer_question(enc_image, prompt, tokenizer)

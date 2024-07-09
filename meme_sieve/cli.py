@@ -15,7 +15,7 @@ def main():
         prog="memesieve", description="Returns a list of filepaths for memes in the specified folder.")
     parser.add_argument("-s", "--source_folder", default=".", type=str,
                         help="The source folder path containing the files to be checked for memes.")
-    parser.add_argument("-d", "--delay", default=4, type=int,
+    parser.add_argument("-d", "--delay", default=-1, type=int,
                         help="The amount of seconds to wait between each examined file.")
     parser.add_argument('-e', '--extensions', nargs="+", default=[
                         "jpg", "jpeg", "png", "gif"], help="The extensions to include in the searched files.")
@@ -41,7 +41,7 @@ def main():
             image_path=path,
             model_name=MODEL_REGISTRY[args.model]["model_name"],
             model_version=MODEL_REGISTRY[args.model]["model_version"],
-            sleep_time=args.delay
+            sleep_time=args.delay if args.delay >= 0 else MODEL_REGISTRY[args.model]["default_delay"]
         )
 
         if "true" in res_text:

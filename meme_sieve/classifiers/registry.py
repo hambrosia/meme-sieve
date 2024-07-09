@@ -7,12 +7,14 @@ MODEL_REGISTRY = {
         "model_name": "vikhyatk/moondream2",
         "model_version": "2024-05-20",
         "prompt": DEFAULT_PROMPT,
-        "classifier": MoondreamClassifier
+        "classifier": MoondreamClassifier,
+        "default_delay": 0
     },
     "gemini": {
         "model_name": "gemini-1.5-flash",
         "model_version": "latest",
         "prompt": DEFAULT_PROMPT,
-        "classifier": GoogleGenAIClassifier
+        "classifier": GoogleGenAIClassifier,
+        "default_delay": 4
     }
 }

@@ -4,10 +4,11 @@ import torch
 from classifiers.classifier_base import ClassifierBase
 from PIL import Image
 from transformers import AutoModelForCausalLM, AutoTokenizer
-
+from transformers.utils.logging import set_verbosity_error
 
 class MoondreamClassifier(ClassifierBase):
     def __init__(self):
+        set_verbosity_error()
         super().__init__()
 
     def generate_text_using_image(self, prompt, image_path, model_name, model_version, sleep_time=4):

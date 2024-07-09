@@ -33,8 +33,8 @@ def main():
         sys.exit(
             "Error: No image files found in the specified folder with the specified extensions.")
 
+    classifier = MODEL_REGISTRY[args.model]["classifier"]()
     for path in file_paths:
-        classifier = MODEL_REGISTRY[args.model]["classifier"]()
 
         res_text = classifier.generate_text_using_image(
             prompt=MODEL_REGISTRY[args.model]["prompt"],

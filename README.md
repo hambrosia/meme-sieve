@@ -27,31 +27,24 @@ $ which memesieve
 With the virtual environment activated, you can use the `memesieve` command in any directory for testing.
 
 
-### API Setup
-Set the Google API key environment variable. To get a new API key, visit [Google AI Studio](https://aistudio.google.com/app/apikey). When testing the tool, it is recommended to make a new token in the unpaid free tier to avoid any costs. The user is responsible for any costs incurred for Google API usage.
-
-```console
-$ export GOOGLE_API_KEY="gabagool"
-```
-
 ### Display Help Prompt
 
 ```console
 $ memesieve --help
-usage: memesieve [-h] [-s SOURCE_FOLDER] [-d DELAY] [-e EXTENSIONS [EXTENSIONS ...]] [-m MODEL]
+usage: memesieve [-h] [-s SOURCE_FOLDER] [-d DELAY] [-e EXTENSIONS [EXTENSIONS ...]] [-m {moondream,gemini}]
 
-Returns a list of filepaths for memes in the specified folder
+Returns a list of filepaths for memes in the specified folder.
 
 options:
   -h, --help            show this help message and exit
   -s SOURCE_FOLDER, --source_folder SOURCE_FOLDER
-                        The source folder path containing the files to be checked for memes
+                        The source folder path containing the files to be checked for memes.
   -d DELAY, --delay DELAY
-                        The amount of seconds to wait between each examined file. This helps the tool stay within the free tier for the Gemini Flash model
+                        The amount of seconds to wait between each examined file.
   -e EXTENSIONS [EXTENSIONS ...], --extensions EXTENSIONS [EXTENSIONS ...]
                         The extensions to include in the searched files.
-  -m MODEL, --model MODEL
-                        The Google Gemini model to use.
+  -m {moondream,gemini}, --model {moondream,gemini}
+                        The name of the model to use.
 ```
 
 
@@ -77,7 +70,6 @@ To copy the memes to another foloder, use a variation of the following:
 $ memesieve | while read filename; do cp "$filename" "../output_folder/$filename"; done
 ```
 
-
 ### Move
 To move the memes to another folder, use something similar to the following:
 ```console
@@ -86,10 +78,31 @@ $ memesieve | while read filename; do mv "$filename" "../output_folder/$filename
 
 Always exercise caution, since the program can sometimes misidentify photos as memes, especially if they are humorous or contain meme-like text.
 
+### Model Selection
+
+The tool supports multiple models to detect memes. By default, the program uses the [Moondream](https://github.com/vikhyat/moondream) package, a small vision language model that runs locally and can use either CPU or GPU.
+
+To use another model, select it by name.
+
+```console
+$ memesieve -m gemini
+porkchop.jpg
+bezos.png
+ham_salad.jpg
+```
+
+
+### API Setup
+If you select the Gemini model, you will need to set the Google API key environment variable. To get a new API key, visit [Google AI Studio](https://aistudio.google.com/app/apikey). When testing the tool, it is recommended to make a new token in the unpaid free tier to avoid any costs. The user is responsible for any costs incurred for Google API usage.
+
+```console
+$ export GOOGLE_API_KEY="gabagool"
+```
+
 
 ### Setting the delay
 
-The model used is Google's Gemini Flash, which has a free-tier limit of 15 requests per minute. By default, the program will use a delay of four seconds to keep usage within the free tier. If you have a paid token, you can decrease the limit using the `-d` flag.
+Some models may benefit from a longer delay between calls, others may be need a shorter delay. When using Google's Gemini Flash, for example, the free-tier has a limit of 15 requests per minute. By default the program will use a delay deemed appropriate for the model. You can override the delay using the `-d` flag specifying an integer value in seconds.
 
 ```console
 $ memesieve -d 2
